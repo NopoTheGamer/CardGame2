@@ -49,7 +49,7 @@ object GameField {
     @JvmStatic
     fun killCard(lane: Int, type: Type) {
         if (lane < 0 || lane > 4) throw IndexOutOfBoundsException("Lane must be between 0 and 4")
-        getField(type)[lane]?.onDeath()
+        getField(type)[lane]?.onDeath() ?: return
         getField(type)[lane] = null
     }
 

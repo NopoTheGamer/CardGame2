@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.nopo.cardgame.GameField;
 import com.nopo.cardgame.cards.Card;
 
+import static com.nopo.cardgame.utils.RenderUtilsKt.renderCards;
+
 public class GameScreen implements Screen {
 
     final Game game;
@@ -44,13 +46,13 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
 
+        GameField.placeCard(0, card, GameField.Type.THEIR_CARDS);
+        GameField.placeCard(4, card, GameField.Type.YOUR_CARDS);
         game.batch.begin();
         game.batch.draw(background, 0, 250, screenWidth, screenHeight - 250);
+        renderCards(game);
         game.batch.end();
-        GameField.placeCard(0, card, GameField.Type.THEIR_CARDS);
-        System.out.println(GameField.getCard(0, GameField.Type.THEIR_CARDS).getName());
         GameField.moveCard(0, 2, GameField.Type.THEIR_CARDS);
-        System.out.println(GameField.getCard(2, GameField.Type.THEIR_CARDS).getName());
         GameField.killCard(2, GameField.Type.THEIR_CARDS);
     }
 
