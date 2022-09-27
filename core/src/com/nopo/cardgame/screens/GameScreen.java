@@ -33,6 +33,9 @@ public class GameScreen implements Screen {
         camera.update();
 
         background = new Texture(Gdx.files.internal("background.png"));
+        GameField.placeCard(0, card, GameField.Type.THEIR_CARDS);
+        GameField.placeCard(4, card, GameField.Type.YOUR_CARDS);
+        GameField.addToDeck(card);
     }
 
     @Override
@@ -46,14 +49,11 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
 
-        GameField.placeCard(0, card, GameField.Type.THEIR_CARDS);
-        GameField.placeCard(4, card, GameField.Type.YOUR_CARDS);
+
         game.batch.begin();
         game.batch.draw(background, 0, 250, screenWidth, screenHeight - 250);
         renderCards(game);
         game.batch.end();
-        GameField.moveCard(0, 2, GameField.Type.THEIR_CARDS);
-        GameField.killCard(2, GameField.Type.THEIR_CARDS);
     }
 
     @Override

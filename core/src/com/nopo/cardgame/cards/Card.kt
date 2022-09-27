@@ -1,8 +1,13 @@
 package com.nopo.cardgame.cards
 
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.math.Rectangle
+import com.nopo.cardgame.GameField
 
 class Card(var name: String, var damage: Int, var health: Int, var cost: Int, var texture: Texture) {
+    var rectangle: Rectangle = Rectangle(-1f,-1f, texture.width.toFloat(), texture.height.toFloat())
+    var lane = -1
+    var location = GameField.Type.DECK
 
     fun canBeReplaced(card : Card): Boolean {
         return false //TODO: implement

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class Game extends com.badlogic.gdx.Game {
 	public SpriteBatch batch;
-	static Rectangle pointer;
+	public static Rectangle pointer;
 	static Texture black;
 	public BitmapFont font;
 
