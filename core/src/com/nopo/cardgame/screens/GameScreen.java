@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.nopo.cardgame.GameField;
 import com.nopo.cardgame.cards.Card;
+import com.nopo.cardgame.cards.ExamplePlacementCard;
 
 import static com.nopo.cardgame.utils.RenderUtilsKt.renderCards;
 
@@ -25,7 +26,7 @@ public class GameScreen implements Screen {
 
     Card cardTheir = new Card("cardTheir", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
     Card cardYours = new Card("cardYours", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
-    Card cardDeck = new Card("cardDeck", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
+    Card cardDeck = new ExamplePlacementCard("cardDeck", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
 
     public GameScreen(final Game game) {
         this.game = game;

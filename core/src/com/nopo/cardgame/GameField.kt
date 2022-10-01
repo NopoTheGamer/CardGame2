@@ -54,8 +54,18 @@ object GameField {
         if (canPlaceCard(lane, card, type)) {
             card.lane = lane
             card.location = type
-            card.onPlacement()
             getField(type)[lane] = card
+            card.onPlacement()
+        }
+    }
+
+    @JvmStatic
+    fun playCard(lane: Int, card: Card, type: Type) {
+        if (card.location != Type.DECK) throw IllegalStateException("Card is not in deck, use placeCard instead")
+        if (canPlaceCard(lane, card, type)) {
+            deck.remove(card)
+            deck.add(null)
+            placeCard(lane, card, type)
         }
     }
 

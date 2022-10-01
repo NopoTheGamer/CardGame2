@@ -4,42 +4,43 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Rectangle
 import com.nopo.cardgame.GameField
 
-class Card(var name: String, var damage: Int, var health: Int, var cost: Int, var texture: Texture) {
-    var rectangle: Rectangle = Rectangle(-1f,-1f, texture.width.toFloat(), texture.height.toFloat())
+open class Card(var name: String, var damage: Int, var health: Int, var cost: Int, var texture: Texture) {
+
+    var rectangle: Rectangle = Rectangle(-1f, -1f, texture.width.toFloat(), texture.height.toFloat())
     var lane = -1
-    var location : GameField.Type? = null
+    var location: GameField.Type? = null
     var isHeld = false;
 
-    fun canBeReplaced(card : Card): Boolean {
+    open fun canBeReplaced(card: Card): Boolean {
         card.isHeld
         return false //TODO: implement
     }
 
-    fun onPlacement() {
+    open fun onPlacement() {
 
     }
 
-    fun onAttack() {
+    open fun onAttack() {
 
     }
 
-    fun onDeath() {
+    open fun onDeath() {
         // Put code that runs on card hp = 0 here
     }
 
-    fun onCombatStart() {
+    open fun onCombatStart() {
 
     }
 
-    fun onCombatEnd() {
+    open fun onCombatEnd() {
 
     }
 
-    fun onTurnStart() {
+    open fun onTurnStart() {
 
     }
 
-    fun onTurnEnd() {
+    open fun onTurnEnd() {
 
     }
 }
