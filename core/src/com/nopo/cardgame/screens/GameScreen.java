@@ -23,7 +23,9 @@ public class GameScreen implements Screen {
     float screenHeight = Gdx.graphics.getHeight();
     Texture background;
 
-    Card card = new Card("name", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
+    Card cardTheir = new Card("cardTheir", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
+    Card cardYours = new Card("cardYours", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
+    Card cardDeck = new Card("cardDeck", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
 
     public GameScreen(final Game game) {
         this.game = game;
@@ -33,9 +35,9 @@ public class GameScreen implements Screen {
         camera.update();
 
         background = new Texture(Gdx.files.internal("background.png"));
-        GameField.placeCard(0, card, GameField.Type.THEIR_CARDS);
-        GameField.placeCard(4, card, GameField.Type.YOUR_CARDS);
-        GameField.addToDeck(card);
+        GameField.placeCard(0, cardTheir, GameField.Type.THEIR_CARDS);
+        GameField.placeCard(4, cardYours, GameField.Type.YOUR_CARDS);
+        GameField.addToDeck(cardDeck);
     }
 
     @Override

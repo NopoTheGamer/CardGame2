@@ -32,7 +32,7 @@ object GameField {
         return if (getField(type)[lane]?.location == type) {
             getField(type)[lane]
         } else {
-            println("${getField(type)[lane]?.location} + $type + $lane") //TODO: fix this
+            if (getField(type)[lane]?.location != null) throw IllegalStateException("Card is in wrong field")
             null
         }
     }

@@ -28,15 +28,16 @@ fun renderCards(game: Game) { //TODO: refactor this code later
 
     for (i in 0..9) {
         val card = GameField.getCard(i, GameField.Type.DECK) ?: continue
-        if (card.rectangle.overlaps(Game.pointer) && Gdx.input.isTouched) {
-            println("Touched")
+        if (card.rectangle.overlaps(Game.pointer) && Gdx.input.isTouched && !card.isHeld) {
+            card.isHeld = true
+        } else if (Gdx.input.isTouched && card.isHeld) {
             card.rectangle.setX(Game.pointer.x)
             card.rectangle.setY(Game.pointer.y)
         } else {
             card.rectangle.setX(40f + (200 * i + 1))
             card.rectangle.setY(0f)
+            card.isHeld = false;
         }
-        println(card.rectangle.x)
         game.batch.draw(card.texture, card.rectangle.x, card.rectangle.y)
     }
 }

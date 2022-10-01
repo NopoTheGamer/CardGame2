@@ -7,9 +7,11 @@ import com.nopo.cardgame.GameField
 class Card(var name: String, var damage: Int, var health: Int, var cost: Int, var texture: Texture) {
     var rectangle: Rectangle = Rectangle(-1f,-1f, texture.width.toFloat(), texture.height.toFloat())
     var lane = -1
-    var location = GameField.Type.DECK
+    var location : GameField.Type? = null
+    var isHeld = false;
 
     fun canBeReplaced(card : Card): Boolean {
+        card.isHeld
         return false //TODO: implement
     }
 
