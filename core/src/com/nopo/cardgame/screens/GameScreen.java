@@ -23,10 +23,11 @@ public class GameScreen implements Screen {
     float screenWidth = Gdx.graphics.getWidth();
     float screenHeight = Gdx.graphics.getHeight();
     Texture background;
+    public GAME_STATE gameState = GAME_STATE.PLACING;
 
-    Card cardTheir = new Card("cardTheir", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
-    Card cardYours = new Card("cardYours", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
-    Card cardDeck = new ExamplePlacementCard("cardDeck", 3, 3,3, new Texture(Gdx.files.internal("player.png")));
+    Card cardTheir = new Card("cardTheir", 3, 3, 3, new Texture(Gdx.files.internal("player.png")));
+    Card cardYours = new Card("cardYours", 3, 3, 3, new Texture(Gdx.files.internal("player.png")));
+    Card cardDeck = new ExamplePlacementCard("cardDeck", 3, 3, 3, new Texture(Gdx.files.internal("player.png")));
 
     public GameScreen(final Game game) {
         this.game = game;
@@ -51,12 +52,26 @@ public class GameScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
-
+        placing();
+        startCombat();
+        combat();
 
         game.batch.begin();
         game.batch.draw(background, 0, 250, screenWidth, screenHeight - 250);
         renderCards(game);
         game.batch.end();
+    }
+
+    void placing() {
+        if (gameState != GAME_STATE.PLACING) return;
+    }
+
+    void startCombat() {
+        if (gameState != GAME_STATE.START_COMBAT) return;
+    }
+
+    void combat() {
+        if (gameState != GAME_STATE.COMBAT) return;
     }
 
     @Override
@@ -87,5 +102,9 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public enum GAME_STATE {
+        PLACING, START_COMBAT, COMBAT
     }
 }
