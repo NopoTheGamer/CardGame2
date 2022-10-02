@@ -2,6 +2,7 @@ package com.nopo.cardgame.utils
 
 import com.nopo.cardgame.GameField
 import com.nopo.cardgame.cardHolding
+import com.nopo.cardgame.resetCard
 import com.nopo.cardgame.screens.Game
 
 
@@ -30,9 +31,7 @@ fun renderCards(game: Game) { //TODO: refactor this code later
     for (i in 0..9) {
         val card = GameField.getCard(i, GameField.Type.DECK) ?: continue
         if (!cardHolding(card, i)) {
-            card.rectangle.setX(40f + (200 * i + 1))
-            card.rectangle.setY(0f)
-            card.isHeld = false;
+            resetCard(card, i)
         }
         game.batch.draw(card.texture, card.rectangle.x, card.rectangle.y)
     }

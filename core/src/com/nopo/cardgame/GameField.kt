@@ -2,16 +2,26 @@ package com.nopo.cardgame
 
 import com.badlogic.gdx.Gdx
 import com.nopo.cardgame.cards.Card
-import java.util.*
 
 object GameField {
     private val yourCards = ArrayList(listOf(*arrayOfNulls<Card>(5)))
     private val theirCards = ArrayList(listOf(*arrayOfNulls<Card>(5)))
     private val environments = ArrayList(listOf(*arrayOfNulls<Card>(5)))
     private val deck = ArrayList(listOf(*arrayOfNulls<Card>(10)))
+    var energy = 1
+    var turn = 1
+    var yourHealth = 30
+    var theirHealth = 30
 
     enum class Type {
-        YOUR_CARDS, THEIR_CARDS, ENVIRONMENTS, DECK
+        YOUR_CARDS, THEIR_CARDS, ENVIRONMENTS, DECK;
+        fun getOtherSide(): Type {
+            return when (this) {
+                YOUR_CARDS -> THEIR_CARDS
+                THEIR_CARDS -> YOUR_CARDS
+                else -> throw IllegalArgumentException("Can't get other side of $this")
+            }
+        }
     }
 
     private fun getField(type: Type): ArrayList<Card?> {
@@ -40,7 +50,7 @@ object GameField {
     @JvmStatic
     fun canPlaceCard(lane: Int, card: Card?, type: Type): Boolean {
         if (lane < 0 || lane > 4) throw IndexOutOfBoundsException("Lane must be between 0 and 4")
-        if (card == null) return true
+        if (card == null) return true // ?
         return getField(type)[lane] == null || getField(type)[lane]?.canBeReplaced(card) ?: false
     }
 
@@ -60,13 +70,16 @@ object GameField {
     }
 
     @JvmStatic
-    fun playCard(lane: Int, card: Card, type: Type) {
+    fun playCard(lane: Int, card: Card, type: Type): Boolean {
         if (card.location != Type.DECK) throw IllegalStateException("Card is not in deck, use placeCard instead")
-        if (canPlaceCard(lane, card, type)) {
+        if (canPlaceCard(lane, card, type) && (card.cost <= energy)) {
             deck.remove(card)
             deck.add(null)
+            energy -= card.cost
             placeCard(lane, card, type)
+            return true
         }
+        return false
     }
 
     @JvmStatic
@@ -87,7 +100,7 @@ object GameField {
 
 
     @JvmStatic
-    fun addToDeck(card : Card) {
+    fun addToDeck(card: Card) {
         for (i in 0..9) {
             val cards = deck[i]
             if (cards == null) {
@@ -97,5 +110,66 @@ object GameField {
             }
         }
         throw IndexOutOfBoundsException("Deck is full")
+    }
+
+    @JvmStatic
+    fun startCombat() {
+        for (card in theirCards) {
+            card?.onCombatStart()
+        }
+        for (card in yourCards) {
+            card?.onCombatStart()
+        }
+    }
+
+    @JvmStatic
+    fun combat() {
+        for (i in 0..4) {
+            val theirCard = getCard(i, Type.THEIR_CARDS)
+            val yourCard = getCard(i, Type.YOUR_CARDS)
+
+            theirCard?.onTurnStart()
+            yourCard?.onTurnStart()
+
+            theirCard?.onAttack()
+            attack(i, theirCard)
+
+            yourCard?.onAttack()
+            attack(i, yourCard)
+
+            theirCard?.onTurnEnd()
+            yourCard?.onTurnEnd()
+        }
+    }
+
+    @JvmStatic
+    fun attack(lane: Int, card: Card?) {
+        card ?: return
+        val otherSide = card.location?.getOtherSide() ?: throw IllegalStateException("Card is not in field")
+        val otherCard = getCard(lane, otherSide)
+        if (otherCard != null) {
+            otherCard.health -= card.damage
+            if (otherCard.health <= 0) killCard(lane, otherSide)
+        } else {
+            if (otherSide == Type.THEIR_CARDS) {
+                theirHealth -= card.damage
+                if (theirHealth < 0) theirHealth = 0
+            } else {
+                yourHealth -= card.damage
+                if (yourHealth < 0) yourHealth = 0
+            }
+        }
+    }
+
+    @JvmStatic
+    fun nextTurn() {
+        turn++
+        energy = turn
+        for (card in theirCards) {
+            card?.onCombatEnd()
+        }
+        for (card in yourCards) {
+            card?.onCombatEnd()
+        }
     }
 }
