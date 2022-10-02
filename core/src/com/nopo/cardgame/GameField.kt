@@ -11,6 +11,7 @@ object GameField {
     private val environments = ArrayList(listOf(*arrayOfNulls<Card>(5)))
     private val deck = ArrayList(listOf(*arrayOfNulls<Card>(10)))
     private val cardPile = ArrayList(listOf(*arrayOfNulls<Card>(40)))
+    private var laneTypes: ArrayList<LaneTypes> = ArrayList()
     var energy = 1
     var turn = 1
     var yourHealth = 30
@@ -26,6 +27,10 @@ object GameField {
                 else -> throw IllegalArgumentException("Can't get other side of $this")
             }
         }
+    }
+
+    enum class LaneTypes {
+        NORMAL, WATER, WATER_ONLY, HEIGHTS
     }
 
     private fun getField(type: Type): ArrayList<Card?> {
@@ -53,10 +58,24 @@ object GameField {
     }
 
     @JvmStatic
+    fun canPlaceOnLaneType(cardLane: LaneTypes, lane: Int): Boolean {
+        if (lane < 0 || lane > 4) throw IndexOutOfBoundsException("Lane must be between 0 and 4")
+        val laneType = laneTypes[lane]
+        if (cardLane == laneType) return true
+        if (cardLane == LaneTypes.WATER) return true
+        if (cardLane == LaneTypes.WATER_ONLY && laneType == LaneTypes.WATER) return true
+        if (laneType == LaneTypes.HEIGHTS && cardLane == LaneTypes.NORMAL) return true
+        if (laneType == LaneTypes.NORMAL && cardLane == LaneTypes.HEIGHTS) return true
+        return false
+    }
+
+    @JvmStatic
     fun canPlaceCard(lane: Int, card: Card?, type: Type): Boolean {
         if (lane < 0 || lane > 4) throw IndexOutOfBoundsException("Lane must be between 0 and 4")
         if (card == null) return true // ?
-        return getField(type)[lane] == null || getField(type)[lane]?.canBeReplaced(card) ?: false
+        if (canPlaceOnLaneType(card.whereCanBePlaced, lane)) {
+            return getField(type)[lane] == null || getField(type)[lane]?.canBeReplaced(card) ?: false
+        } else return false
     }
 
     @JvmStatic
@@ -201,11 +220,17 @@ object GameField {
     @JvmStatic
     fun createPile() {
         for (i in 0..39) {
-            val card = Card("card $i", 3, 3, 3, Texture(Gdx.files.internal("player.png")))
-            val cardCool = ExamplePlacementCard("card $i", 3, 3, 5, Texture(Gdx.files.internal("player.png")))
+            val card = Card("card $i", 3, 3, 3)
+            val cardCool = ExamplePlacementCard("card $i", 3, 3, 5)
             if (i < 20) getField(Type.CARD_PILE)[i] = card
             else getField(Type.CARD_PILE)[i] = cardCool
         }
         getField(Type.CARD_PILE).shuffle()
+    }
+
+    @JvmStatic
+    fun setLanes(laneType: ArrayList<LaneTypes>) {
+        if (laneType.size != 5) throw IndexOutOfBoundsException("LaneType must be 5 long")
+        laneTypes = laneType
     }
 }

@@ -6,6 +6,7 @@
 uhh so its like plants vs zombies heroes kinda
 
 thats where alot of inspiration came from
+as well as slay the spire
 
 ## Todo
 (in no real order)
@@ -20,7 +21,7 @@ thats where alot of inspiration came from
 - [ ] Add a game over screen
 - [ ] Add cards that get placed on other cards
 - [ ] Add environments 
-- [ ] Add water
+- [x] Add water
 - [ ] Add custom decks (not really sure?)
 - [ ] Add textures
 - [ ] Add card descriptions and info
