@@ -5,7 +5,23 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Rectangle
 import com.nopo.cardgame.GameField
 
-open class Card(var name: String, val baseDamage: Int, val baseHealth: Int, var cost: Int) {
+open class Card @JvmOverloads constructor(
+    var name: String,
+    val baseDamage: Int,
+    val baseHealth: Int,
+    var cost: Int,
+    var abilities: MutableList<Ability> = mutableListOf(),
+) {
+
+    enum class Ability() {
+        DOUBLE_STRIKE, POISON(1), FRENZY, STRIKETHROUGH, DEADLY, VAMP;
+
+        private var value: Int = 0
+
+        constructor(value: Int) : this() {
+            this.value = value
+        }
+    }
 
     open var texture: Texture = Texture(Gdx.files.internal("cards/default_card.png"))
     open var whereCanBePlaced = GameField.LaneTypes.NORMAL
@@ -37,6 +53,22 @@ open class Card(var name: String, val baseDamage: Int, val baseHealth: Int, var 
         return false //TODO: implement
     }
 
+    /**
+     * Called when damaging another card
+     */
+    open fun attack(otherCard: Card) {
+        otherCard.healthModifier -= this.currentDamage
+        if (this.abilities.contains(Ability.VAMP)) {
+            this.healthModifier += this.currentDamage
+        }
+    }
+    /**
+     * Called when damaging a player
+     */
+    open fun attack(): Int {
+        return this.currentDamage
+    }
+
     open fun onPlacement() {
 
     }
@@ -46,6 +78,9 @@ open class Card(var name: String, val baseDamage: Int, val baseHealth: Int, var 
     }
 
     open fun onKill() {
+        if (abilities.contains(Ability.FRENZY)) {
+            GameField.attack(this.lane, this)
+        }
 
     }
 

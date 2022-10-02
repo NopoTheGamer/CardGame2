@@ -19,7 +19,7 @@ as well as slay the spire
   - [x] Frenzy (attack again after killing an enemy)
   - [ ] Strikethrough 
   - [ ] Deadly (one shot enemies)
-  - [ ] Vamp (heal for damage dealt)
+  - [x] Vamp (heal for damage dealt)
     - [ ] Add "ability" cards (adds stats or abilities to a card)
       - [ ] Add the shield mechanic
 - [ ] Add a main menu

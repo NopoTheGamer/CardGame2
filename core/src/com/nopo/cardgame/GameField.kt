@@ -175,7 +175,7 @@ object GameField {
         val otherCard = getCard(lane, otherSide)
         card.workOutDamage()
         if (otherCard != null) {
-            otherCard.healthModifier -= card.currentDamage
+            card.attack(otherCard)
             otherCard.workOutHealth()
             if (otherCard.currentHealth <= 0) {
                 killCard(lane, otherSide)
@@ -183,10 +183,10 @@ object GameField {
             }
         } else {
             if (otherSide == Type.THEIR_CARDS) {
-                theirHealth -= card.currentDamage
+                theirHealth -= card.attack()
                 if (theirHealth < 0) theirHealth = 0
             } else {
-                yourHealth -= card.currentDamage
+                yourHealth -= card.attack()
                 if (yourHealth < 0) yourHealth = 0
             }
         }

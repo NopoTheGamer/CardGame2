@@ -14,6 +14,7 @@ import com.nopo.cardgame.cards.FrenzyCard;
 import com.nopo.cardgame.cards.WaterCard;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.nopo.cardgame.utils.RenderUtilsKt.renderCards;
 
@@ -32,8 +33,8 @@ public class GameScreen implements Screen {
     Rectangle rec;
     public GAME_STATE gameState = GAME_STATE.PLACING;
 
-    Card cardTheir = new ExamplePlacementCard("cardTheir", 1, 2, 3);
-    Card cardYours = new Card("cardYours", 1, 3, 3);
+    Card cardTheir = new ExamplePlacementCard("cardTheir", 4, 2, 3, new ArrayList<>(List.of(Card.Ability.FRENZY, Card.Ability.VAMP)));
+    Card cardYours = new Card("cardYours", 1, 3, 3, new ArrayList<>(List.of(Card.Ability.FRENZY)));
     Card cardDeck = new ExamplePlacementCard("cardDeck", 1, 3, 5);
     Card cardDeck2 = new WaterCard("cardDeck2", 1, 3, 5);
     Card cardDeck3 = new FrenzyCard("cardDeck3", 3, 4, 2);
