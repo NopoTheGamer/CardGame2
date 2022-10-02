@@ -33,10 +33,10 @@ public class GameScreen implements Screen {
     Rectangle rec;
     public GAME_STATE gameState = GAME_STATE.PLACING;
 
-    Card cardTheir = new ExamplePlacementCard("cardTheir", 4, 2, 3, new ArrayList<>(List.of(Card.Ability.FRENZY, Card.Ability.VAMP)));
+    Card cardTheir = new ExamplePlacementCard("cardTheir", 4, 2, 3, new ArrayList<>(List.of(Card.Ability.FRENZY, Card.Ability.VAMP.setValue(.25f))));
     Card cardYours = new Card("cardYours", 1, 3, 3, new ArrayList<>(List.of(Card.Ability.FRENZY)));
     Card cardDeck = new ExamplePlacementCard("cardDeck", 1, 3, 5);
-    Card cardDeck2 = new WaterCard("cardDeck2", 1, 3, 5);
+    Card cardDeck2 = new WaterCard("cardDeck2", 1, 3, 1, new ArrayList<>(List.of(Card.Ability.STRIKETHROUGH)));
     Card cardDeck3 = new FrenzyCard("cardDeck3", 3, 4, 2);
 
     public GameScreen(final Game game) {

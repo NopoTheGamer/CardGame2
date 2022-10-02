@@ -182,13 +182,18 @@ object GameField {
                 card.onKill()
             }
         } else {
-            if (otherSide == Type.THEIR_CARDS) {
-                theirHealth -= card.attack()
-                if (theirHealth < 0) theirHealth = 0
-            } else {
-                yourHealth -= card.attack()
-                if (yourHealth < 0) yourHealth = 0
-            }
+            attackOther(card, otherSide)
+        }
+    }
+
+    @JvmStatic
+    fun attackOther/*person? idk*/(card: Card, location: Type) {
+        if (location == Type.THEIR_CARDS) {
+            theirHealth -= card.attack()
+            if (theirHealth < 0) theirHealth = 0
+        } else {
+            yourHealth -= card.attack()
+            if (yourHealth < 0) yourHealth = 0
         }
     }
 

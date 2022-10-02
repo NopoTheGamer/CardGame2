@@ -14,12 +14,16 @@ open class Card @JvmOverloads constructor(
 ) {
 
     enum class Ability() {
-        DOUBLE_STRIKE, POISON(1), FRENZY, STRIKETHROUGH, DEADLY, VAMP;
+        DOUBLE_STRIKE, POISON, FRENZY, STRIKETHROUGH, DEADLY, VAMP;
 
-        private var value: Int = 0
-
-        constructor(value: Int) : this() {
+        private var value: Float = 1f
+        fun setValue(value: Float): Ability {
             this.value = value
+            return this
+        }
+
+        fun getValue(): Float {
+            return this.value
         }
     }
 
@@ -59,7 +63,10 @@ open class Card @JvmOverloads constructor(
     open fun attack(otherCard: Card) {
         otherCard.healthModifier -= this.currentDamage
         if (this.abilities.contains(Ability.VAMP)) {
-            this.healthModifier += this.currentDamage
+            this.healthModifier += (this.currentDamage * this.abilities.find { it == Ability.VAMP }!!.getValue()).toInt()
+        }
+        if (this.abilities.contains(Ability.STRIKETHROUGH)) {
+            GameField.attackOther(this, this.location!!.getOtherSide())
         }
     }
     /**
