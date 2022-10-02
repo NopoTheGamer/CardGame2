@@ -2,9 +2,9 @@ package com.nopo.cardgame.utils
 
 import com.nopo.cardgame.GameField
 import com.nopo.cardgame.cardHolding
+import com.nopo.cardgame.cards.Card
 import com.nopo.cardgame.resetCard
 import com.nopo.cardgame.screens.Game
-
 
 
 fun renderCards(game: Game) { //TODO: refactor this code later
@@ -18,13 +18,13 @@ fun renderCards(game: Game) { //TODO: refactor this code later
         if (cardTheir != null) {
             cardTheir.rectangle.x = x
             cardTheir.rectangle.y = 720f
-            game.batch.draw(cardTheir.texture, cardTheir.rectangle.x, cardTheir.rectangle.y)
+            drawCardInfo(cardTheir, game)
         }
         val cardYour = GameField.getCard(i, GameField.Type.YOUR_CARDS)
         if (cardYour != null) {
             cardYour.rectangle.x = x
             cardYour.rectangle.y = 260f
-            game.batch.draw(cardYour.texture, cardYour.rectangle.x, cardYour.rectangle.y)
+            drawCardInfo(cardYour, game)
         }
     }
 
@@ -33,6 +33,13 @@ fun renderCards(game: Game) { //TODO: refactor this code later
         if (!cardHolding(card, i)) {
             resetCard(card, i)
         }
-        game.batch.draw(card.texture, card.rectangle.x, card.rectangle.y)
+        drawCardInfo(card, game)
+        game.font.draw(game.batch, card.cost.toString(), card.rectangle.x, card.rectangle.y + card.texture.height - 5)
     }
+}
+
+fun drawCardInfo(card: Card, game: Game) {
+    game.batch.draw(card.texture, card.rectangle.x, card.rectangle.y)
+    game.font.draw(game.batch, card.damage.toString(), card.rectangle.x, card.rectangle.y + 13)
+    game.font.draw(game.batch, card.health.toString(), card.rectangle.x + card.texture.width - 5, card.rectangle.y + 13)
 }

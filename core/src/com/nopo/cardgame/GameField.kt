@@ -1,20 +1,24 @@
 package com.nopo.cardgame
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Texture
 import com.nopo.cardgame.cards.Card
+import com.nopo.cardgame.cards.ExamplePlacementCard
 
 object GameField {
     private val yourCards = ArrayList(listOf(*arrayOfNulls<Card>(5)))
     private val theirCards = ArrayList(listOf(*arrayOfNulls<Card>(5)))
     private val environments = ArrayList(listOf(*arrayOfNulls<Card>(5)))
     private val deck = ArrayList(listOf(*arrayOfNulls<Card>(10)))
+    private val cardPile = ArrayList(listOf(*arrayOfNulls<Card>(40)))
     var energy = 1
     var turn = 1
     var yourHealth = 30
     var theirHealth = 30
 
     enum class Type {
-        YOUR_CARDS, THEIR_CARDS, ENVIRONMENTS, DECK;
+        YOUR_CARDS, THEIR_CARDS, ENVIRONMENTS, DECK, CARD_PILE;
+
         fun getOtherSide(): Type {
             return when (this) {
                 YOUR_CARDS -> THEIR_CARDS
@@ -30,7 +34,8 @@ object GameField {
             Type.THEIR_CARDS -> theirCards
             Type.ENVIRONMENTS -> environments
             Type.DECK -> deck
-            else -> throw IllegalArgumentException("Invalid type: $type")
+            Type.CARD_PILE -> cardPile
+            //else -> throw IllegalArgumentException("Invalid type: $type")
         }
     }
 
@@ -73,8 +78,8 @@ object GameField {
     fun playCard(lane: Int, card: Card, type: Type): Boolean {
         if (card.location != Type.DECK) throw IllegalStateException("Card is not in deck, use placeCard instead")
         if (canPlaceCard(lane, card, type) && (card.cost <= energy)) {
-            deck.remove(card)
-            deck.add(null)
+            getField(Type.DECK).remove(card)
+            getField(Type.DECK).add(null)
             energy -= card.cost
             placeCard(lane, card, type)
             return true
@@ -98,26 +103,30 @@ object GameField {
         getField(type)[lane] = null
     }
 
+    @JvmStatic
+    fun canAddToDeck(): Int {
+        for (i in 0..9) {
+            getField(Type.DECK)[i] ?: return i
+        }
+        return -1
+    }
+
 
     @JvmStatic
-    fun addToDeck(card: Card) {
-        for (i in 0..9) {
-            val cards = deck[i]
-            if (cards == null) {
-                card.location = Type.DECK
-                deck[i] = card
-                return
-            }
-        }
-        throw IndexOutOfBoundsException("Deck is full")
+    fun addToDeck(card: Card): Boolean {
+        return if (canAddToDeck() != -1) {
+            card.location = Type.DECK
+            getField(Type.DECK)[canAddToDeck()] = card
+            true
+        } else false
     }
 
     @JvmStatic
     fun startCombat() {
-        for (card in theirCards) {
+        for (card in getField(Type.THEIR_CARDS)) {
             card?.onCombatStart()
         }
-        for (card in yourCards) {
+        for (card in getField(Type.YOUR_CARDS)) {
             card?.onCombatStart()
         }
     }
@@ -163,13 +172,40 @@ object GameField {
 
     @JvmStatic
     fun nextTurn() {
+        for (card in getField(Type.THEIR_CARDS)) {
+            card?.onCombatEnd()
+        }
+        for (card in getField(Type.YOUR_CARDS)) {
+            card?.onCombatEnd()
+        }
         turn++
         energy = turn
-        for (card in theirCards) {
-            card?.onCombatEnd()
+        drawCard()
+    }
+
+    @JvmStatic
+    fun drawCard() {
+        val pile = getField(Type.CARD_PILE)
+        for (card in pile) {
+            if (card != null) {
+                if (addToDeck(card)) {
+                    pile.remove(card)
+                    pile.add(null)
+                }
+                return
+            }
         }
-        for (card in yourCards) {
-            card?.onCombatEnd()
+        throw IndexOutOfBoundsException("pile is empty")
+    }
+
+    @JvmStatic
+    fun createPile() {
+        for (i in 0..39) {
+            val card = Card("card $i", 3, 3, 3, Texture(Gdx.files.internal("player.png")))
+            val cardCool = ExamplePlacementCard("card $i", 3, 3, 5, Texture(Gdx.files.internal("player.png")))
+            if (i < 20) getField(Type.CARD_PILE)[i] = card
+            else getField(Type.CARD_PILE)[i] = cardCool
         }
+        getField(Type.CARD_PILE).shuffle()
     }
 }

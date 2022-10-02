@@ -28,7 +28,7 @@ public class GameScreen implements Screen {
     Rectangle rec;
     public GAME_STATE gameState = GAME_STATE.PLACING;
 
-    Card cardTheir = new ExamplePlacementCard("cardTheir", 1, 3, 3, new Texture(Gdx.files.internal("player.png")));
+    Card cardTheir = new ExamplePlacementCard("cardTheir", 3, 3, 3, new Texture(Gdx.files.internal("player.png")));
     Card cardYours = new Card("cardYours", 3, 3, 3, new Texture(Gdx.files.internal("player.png")));
     Card cardDeck = new ExamplePlacementCard("cardDeck", 3, 3, 5, new Texture(Gdx.files.internal("player.png")));
     Card cardDeck2 = new Card("cardDeck2", 3, 3, 5, new Texture(Gdx.files.internal("player.png")));
@@ -47,6 +47,7 @@ public class GameScreen implements Screen {
         GameField.placeCard(4, cardYours, GameField.Type.YOUR_CARDS);
         GameField.addToDeck(cardDeck);
         GameField.addToDeck(cardDeck2);
+        GameField.createPile();
     }
 
     @Override
