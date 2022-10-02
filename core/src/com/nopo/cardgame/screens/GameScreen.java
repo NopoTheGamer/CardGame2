@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.nopo.cardgame.GameField;
 import com.nopo.cardgame.cards.Card;
 import com.nopo.cardgame.cards.ExamplePlacementCard;
+import com.nopo.cardgame.cards.FrenzyCard;
 import com.nopo.cardgame.cards.WaterCard;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class GameScreen implements Screen {
     Card cardYours = new Card("cardYours", 1, 3, 3);
     Card cardDeck = new ExamplePlacementCard("cardDeck", 1, 3, 5);
     Card cardDeck2 = new WaterCard("cardDeck2", 1, 3, 5);
+    Card cardDeck3 = new FrenzyCard("cardDeck3", 3, 4, 2);
 
     public GameScreen(final Game game) {
         this.game = game;
@@ -58,6 +60,7 @@ public class GameScreen implements Screen {
         GameField.placeCard(1, cardYours, GameField.Type.YOUR_CARDS);
         GameField.addToDeck(cardDeck);
         GameField.addToDeck(cardDeck2);
+        GameField.addToDeck(cardDeck3);
         GameField.createPile();
     }
 

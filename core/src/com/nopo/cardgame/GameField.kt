@@ -177,7 +177,10 @@ object GameField {
         if (otherCard != null) {
             otherCard.healthModifier -= card.currentDamage
             otherCard.workOutHealth()
-            if (otherCard.currentHealth <= 0) killCard(lane, otherSide)
+            if (otherCard.currentHealth <= 0) {
+                killCard(lane, otherSide)
+                card.onKill()
+            }
         } else {
             if (otherSide == Type.THEIR_CARDS) {
                 theirHealth -= card.currentDamage

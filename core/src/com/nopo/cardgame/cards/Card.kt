@@ -45,6 +45,10 @@ open class Card(var name: String, val baseDamage: Int, val baseHealth: Int, var 
 
     }
 
+    open fun onKill() {
+
+    }
+
     open fun onDeath() {
         // Put code that runs on card hp = 0 here
     }
