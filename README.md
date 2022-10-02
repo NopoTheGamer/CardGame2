@@ -12,7 +12,7 @@ as well as slay the spire
 (in no real order)
 
 - [ ] Add enemy ai
-- [ ] Add card modifiers (double strike, more hp etc)
+- [ ] Add card modifiers (double strike, ~~more hp~~ (done) etc)
   - [ ] Add "ability" cards 
     - [ ] Add the shield mechanic
 - [ ] Add a main menu

@@ -31,10 +31,10 @@ public class GameScreen implements Screen {
     Rectangle rec;
     public GAME_STATE gameState = GAME_STATE.PLACING;
 
-    Card cardTheir = new ExamplePlacementCard("cardTheir", 3, 3, 3);
-    Card cardYours = new Card("cardYours", 3, 3, 3);
-    Card cardDeck = new ExamplePlacementCard("cardDeck", 3, 3, 5);
-    Card cardDeck2 = new WaterCard("cardDeck2", 3, 3, 5);
+    Card cardTheir = new ExamplePlacementCard("cardTheir", 1, 2, 3);
+    Card cardYours = new Card("cardYours", 1, 3, 3);
+    Card cardDeck = new ExamplePlacementCard("cardDeck", 1, 3, 5);
+    Card cardDeck2 = new WaterCard("cardDeck2", 1, 3, 5);
 
     public GameScreen(final Game game) {
         this.game = game;
@@ -53,8 +53,6 @@ public class GameScreen implements Screen {
             add(GameField.LaneTypes.NORMAL);
             add(GameField.LaneTypes.WATER);
         }};
-        System.out.println(cardDeck.getTexture().getHeight());
-        System.out.println(cardDeck.getTexture().getWidth());
         GameField.setLanes(laneList);
         GameField.placeCard(0, cardTheir, GameField.Type.THEIR_CARDS);
         GameField.placeCard(1, cardYours, GameField.Type.YOUR_CARDS);

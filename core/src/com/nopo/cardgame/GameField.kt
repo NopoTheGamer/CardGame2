@@ -1,7 +1,5 @@
 package com.nopo.cardgame
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Texture
 import com.nopo.cardgame.cards.Card
 import com.nopo.cardgame.cards.ExamplePlacementCard
 
@@ -175,15 +173,17 @@ object GameField {
         card ?: return
         val otherSide = card.location?.getOtherSide() ?: throw IllegalStateException("Card is not in field")
         val otherCard = getCard(lane, otherSide)
+        card.workOutDamage()
         if (otherCard != null) {
-            otherCard.health -= card.damage
-            if (otherCard.health <= 0) killCard(lane, otherSide)
+            otherCard.healthModifier -= card.currentDamage
+            otherCard.workOutHealth()
+            if (otherCard.currentHealth <= 0) killCard(lane, otherSide)
         } else {
             if (otherSide == Type.THEIR_CARDS) {
-                theirHealth -= card.damage
+                theirHealth -= card.currentDamage
                 if (theirHealth < 0) theirHealth = 0
             } else {
-                yourHealth -= card.damage
+                yourHealth -= card.currentDamage
                 if (yourHealth < 0) yourHealth = 0
             }
         }

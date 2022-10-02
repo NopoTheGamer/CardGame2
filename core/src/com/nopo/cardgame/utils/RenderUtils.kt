@@ -39,7 +39,9 @@ fun renderCards(game: Game) { //TODO: refactor this code later
 }
 
 fun drawCardInfo(card: Card, game: Game) {
+    card.workOutHealth()
+    card.workOutDamage()
     game.batch.draw(card.texture, card.rectangle.x, card.rectangle.y)
-    game.font.draw(game.batch, card.damage.toString(), card.rectangle.x, card.rectangle.y + 13)
-    game.font.draw(game.batch, card.health.toString(), card.rectangle.x + card.texture.width - 5, card.rectangle.y + 13)
+    game.font.draw(game.batch, card.currentDamage.toString(), card.rectangle.x, card.rectangle.y + 13)
+    game.font.draw(game.batch, card.currentHealth.toString(), card.rectangle.x + card.texture.width - 5, card.rectangle.y + 13)
 }

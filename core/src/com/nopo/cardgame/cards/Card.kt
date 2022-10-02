@@ -5,14 +5,32 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Rectangle
 import com.nopo.cardgame.GameField
 
-open class Card(var name: String, var damage: Int, var health: Int, var cost: Int) {
+open class Card(var name: String, val baseDamage: Int, val baseHealth: Int, var cost: Int) {
 
     open var texture: Texture = Texture(Gdx.files.internal("cards/default_card.png"))
+    open var whereCanBePlaced = GameField.LaneTypes.NORMAL
     var rectangle: Rectangle = Rectangle(-1f, -1f, 64f, 64f)
     var lane = -1
     var location: GameField.Type? = null
     var isHeld = false;
-    open var whereCanBePlaced = GameField.LaneTypes.NORMAL
+    var damageModifier = 0
+    var currentDamage = 0
+    var healthModifier = 0
+    var currentHealth = 0
+
+    /**
+     * Always call before using the cards health values
+     */
+    fun workOutHealth() {
+        currentHealth = baseHealth + healthModifier
+    }
+
+    /**
+     * Always call before using the cards damage values
+     */
+    fun workOutDamage() {
+        currentDamage = baseDamage + damageModifier
+    }
 
     open fun canBeReplaced(card: Card): Boolean {
         card.isHeld
