@@ -236,7 +236,7 @@ object GameField {
     fun createPile() {
         for (i in 0..39) {
             val card = Card("card $i", 3, 3, 3)
-            val cardCool = ExamplePlacementCard("card $i", 1, 3, 5, MutableList(1) { Card.Ability.DOUBLE_STRIKE })
+            val cardCool = ExamplePlacementCard("card $i", 1, 3, 5, mutableListOf(Card.Ability.DOUBLE_STRIKE, Card.Ability.DEADLY))
             if (i < 20) getField(Type.CARD_PILE)[i] = card
             else getField(Type.CARD_PILE)[i] = cardCool
         }

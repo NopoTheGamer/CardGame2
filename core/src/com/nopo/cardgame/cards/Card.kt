@@ -61,7 +61,7 @@ open class Card @JvmOverloads constructor(
      * Called when damaging another card
      */
     open fun attack(otherCard: Card) {
-        otherCard.healthModifier -= this.currentDamage
+        otherCard.healthModifier -= if (this.abilities.contains(Ability.DEADLY)) otherCard.currentHealth else this.currentDamage
         if (this.abilities.contains(Ability.VAMP)) {
             this.healthModifier += (this.currentDamage * this.abilities.find { it == Ability.VAMP }!!
                 .getValue()).toInt()
