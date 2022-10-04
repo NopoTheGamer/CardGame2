@@ -42,6 +42,14 @@ fun drawCardInfo(card: Card, game: Game) {
     card.workOutHealth()
     card.workOutDamage()
     game.batch.draw(card.texture, card.rectangle.x, card.rectangle.y)
+
+    if (card.currentDamage > card.baseDamage) game.font.setColor(0f, 1f, 0f, 1f)
+    else if (card.currentDamage < card.baseDamage) game.font.setColor(1f, 0f, 0f, 1f)
     game.font.draw(game.batch, card.currentDamage.toString(), card.rectangle.x, card.rectangle.y + 13)
+
+    if (card.currentHealth > card.baseHealth) game.font.setColor(0f, 1f, 0f, 1f)
+    else if (card.currentHealth < card.baseHealth) game.font.setColor(1f, 0f, 0f, 1f)
     game.font.draw(game.batch, card.currentHealth.toString(), card.rectangle.x + card.texture.width - 5, card.rectangle.y + 13)
+
+    game.font.setColor(1f, 1f, 1f, 1f)
 }

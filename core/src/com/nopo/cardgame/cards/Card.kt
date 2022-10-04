@@ -9,7 +9,7 @@ open class Card @JvmOverloads constructor(
     var name: String,
     val baseDamage: Int,
     val baseHealth: Int,
-    var cost: Int,
+    var cost: Int, //TODO: change cost to be like how baseDamage and baseHealth are
     var abilities: MutableList<Ability> = mutableListOf(),
 ) {
 
