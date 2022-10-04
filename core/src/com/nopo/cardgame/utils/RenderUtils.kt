@@ -34,7 +34,8 @@ fun renderCards(game: Game) { //TODO: refactor this code later
             resetCard(card, i)
         }
         drawCardInfo(card, game)
-        game.font.draw(game.batch, card.cost.toString(), card.rectangle.x, card.rectangle.y + card.texture.height - 5)
+        card.workOutCost()
+        game.font.draw(game.batch, card.currentCost.toString(), card.rectangle.x, card.rectangle.y + card.texture.height - 5)
     }
 }
 

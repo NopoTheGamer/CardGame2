@@ -9,7 +9,7 @@ open class Card @JvmOverloads constructor(
     var name: String,
     val baseDamage: Int,
     val baseHealth: Int,
-    var cost: Int, //TODO: change cost to be like how baseDamage and baseHealth are
+    var baseCost: Int,
     var abilities: MutableList<Ability> = mutableListOf(),
 ) {
 
@@ -37,6 +37,8 @@ open class Card @JvmOverloads constructor(
     var currentDamage = 0
     var healthModifier = 0
     var currentHealth = 0
+    var costModifier = 0
+    var currentCost = 0
 
     /**
      * Always call before using the cards health values
@@ -50,6 +52,13 @@ open class Card @JvmOverloads constructor(
      */
     fun workOutDamage() {
         currentDamage = baseDamage + damageModifier
+    }
+
+    /**
+     * Always call before using the cards cost values
+     */
+    fun workOutCost() {
+        currentCost = baseCost + costModifier
     }
 
     open fun canBeReplaced(card: Card): Boolean {

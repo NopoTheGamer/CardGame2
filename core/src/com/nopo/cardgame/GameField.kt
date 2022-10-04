@@ -94,10 +94,11 @@ object GameField {
     @JvmStatic
     fun playCard(lane: Int, card: Card, type: Type): Boolean {
         if (card.location != Type.DECK) throw IllegalStateException("Card is not in deck, use placeCard instead")
-        if (canPlaceCard(lane, card, type) && (card.cost <= energy)) {
+        card.workOutCost()
+        if (canPlaceCard(lane, card, type) && (card.currentCost <= energy)) {
             getField(Type.DECK).remove(card)
             getField(Type.DECK).add(null)
-            energy -= card.cost
+            energy -= card.currentCost
             placeCard(lane, card, type)
             return true
         }
