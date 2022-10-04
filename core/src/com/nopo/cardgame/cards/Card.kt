@@ -13,7 +13,7 @@ open class Card @JvmOverloads constructor(
     var abilities: MutableList<Ability> = mutableListOf(),
 ) {
 
-    enum class Ability() {
+    enum class Ability {
         DOUBLE_STRIKE, POISON, FRENZY, STRIKETHROUGH, DEADLY, VAMP;
 
         private var value: Float = 1f
@@ -63,12 +63,14 @@ open class Card @JvmOverloads constructor(
     open fun attack(otherCard: Card) {
         otherCard.healthModifier -= this.currentDamage
         if (this.abilities.contains(Ability.VAMP)) {
-            this.healthModifier += (this.currentDamage * this.abilities.find { it == Ability.VAMP }!!.getValue()).toInt()
+            this.healthModifier += (this.currentDamage * this.abilities.find { it == Ability.VAMP }!!
+                .getValue()).toInt()
         }
         if (this.abilities.contains(Ability.STRIKETHROUGH)) {
             GameField.attackOther(this, this.location!!.getOtherSide())
         }
     }
+
     /**
      * Called when damaging a player
      */

@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
     Rectangle rec;
     public GAME_STATE gameState = GAME_STATE.PLACING;
 
-    Card cardTheir = new ExamplePlacementCard("cardTheir", 4, 2, 3, new ArrayList<>(List.of(Card.Ability.FRENZY, Card.Ability.VAMP.setValue(.25f))));
+    Card cardTheir = new Card("cardTheir", 1, 9, 3, new ArrayList<>(List.of(Card.Ability.FRENZY, Card.Ability.VAMP.setValue(.25f))));
     Card cardYours = new Card("cardYours", 1, 3, 3, new ArrayList<>(List.of(Card.Ability.FRENZY)));
     Card cardDeck = new ExamplePlacementCard("cardDeck", 1, 3, 5);
     Card cardDeck2 = new WaterCard("cardDeck2", 1, 3, 1, new ArrayList<>(List.of(Card.Ability.STRIKETHROUGH)));
@@ -57,11 +57,11 @@ public class GameScreen implements Screen {
             add(GameField.LaneTypes.WATER);
         }};
         GameField.setLanes(laneList);
-        GameField.placeCard(0, cardTheir, GameField.Type.THEIR_CARDS);
-        GameField.placeCard(1, cardYours, GameField.Type.YOUR_CARDS);
-        GameField.addToDeck(cardDeck);
-        GameField.addToDeck(cardDeck2);
-        GameField.addToDeck(cardDeck3);
+        GameField.placeCard(3, cardTheir, GameField.Type.THEIR_CARDS);
+        //GameField.placeCard(1, cardYours, GameField.Type.YOUR_CARDS);
+        //GameField.addToDeck(cardDeck);
+        //GameField.addToDeck(cardDeck2);
+        //GameField.addToDeck(cardDeck3);
         GameField.createPile();
     }
 

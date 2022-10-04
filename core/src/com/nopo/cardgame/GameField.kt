@@ -171,18 +171,25 @@ object GameField {
     @JvmStatic
     fun attack(lane: Int, card: Card?) {
         card ?: return
-        val otherSide = card.location?.getOtherSide() ?: throw IllegalStateException("Card is not in field")
-        val otherCard = getCard(lane, otherSide)
-        card.workOutDamage()
-        if (otherCard != null) {
-            card.attack(otherCard)
-            otherCard.workOutHealth()
-            if (otherCard.currentHealth <= 0) {
-                killCard(lane, otherSide)
-                card.onKill()
+        val doubleStrike = if (card.abilities.contains(Card.Ability.DOUBLE_STRIKE)) 2 else 1
+        for (x in 1..doubleStrike) {
+            val otherSide = card.location?.getOtherSide() ?: throw IllegalStateException("Card is not in field")
+            val otherCard = getCard(lane, otherSide)
+
+            card.workOutDamage()
+            otherCard?.workOutHealth()
+
+            if (otherCard != null && otherCard.currentHealth > 0) {
+                card.attack(otherCard)
+                otherCard.workOutHealth()
+                if (otherCard.currentHealth <= 0) {
+                    killCard(lane, otherSide)
+                    card.onKill()
+                }
+            } else {
+                attackOther(card, otherSide)
             }
-        } else {
-            attackOther(card, otherSide)
+
         }
     }
 
@@ -229,7 +236,7 @@ object GameField {
     fun createPile() {
         for (i in 0..39) {
             val card = Card("card $i", 3, 3, 3)
-            val cardCool = ExamplePlacementCard("card $i", 3, 3, 5)
+            val cardCool = ExamplePlacementCard("card $i", 1, 3, 5, MutableList(1) { Card.Ability.DOUBLE_STRIKE })
             if (i < 20) getField(Type.CARD_PILE)[i] = card
             else getField(Type.CARD_PILE)[i] = cardCool
         }

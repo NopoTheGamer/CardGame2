@@ -14,12 +14,13 @@ as well as slay the spire
 - [ ] Add enemy ai
 - [x] Add card stat modifiers (more hp, more damage)
 - [ ] Add card ability modifiers (double strike etc)
-  - [ ] Double strike
+  - [x] Double strike
   - [ ] Poison
   - [x] Frenzy (attack again after killing an enemy)
   - [x] Strikethrough 
   - [ ] Deadly (one shot enemies)
   - [x] Vamp (heal for damage dealt)
+  - [ ] Rebound (reflect damage back to enemy)
     - [ ] Add "ability" cards (adds stats or abilities to a card)
       - [ ] Add the shield mechanic
 - [ ] Add a main menu
@@ -32,3 +33,4 @@ as well as slay the spire
 - [ ] Add custom decks (not really sure?)
 - [ ] Add textures
 - [ ] Add card descriptions and info
+- [ ] Add damage splashes
