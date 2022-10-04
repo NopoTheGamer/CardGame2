@@ -121,4 +121,8 @@ open class Card @JvmOverloads constructor(
     open fun onTurnEnd() {
 
     }
+
+    open fun onNewTurnDeck() {
+
+    }
 }

@@ -213,6 +213,9 @@ object GameField {
         for (card in getField(Type.YOUR_CARDS)) {
             card?.onCombatEnd()
         }
+        for (card in getField(Type.DECK)) {
+            card?.onNewTurnDeck()
+        }
         turn++
         energy = turn
         drawCard()
