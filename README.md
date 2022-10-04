@@ -18,7 +18,7 @@ as well as slay the spire
   - [ ] Poison
   - [x] Frenzy (attack again after killing an enemy)
   - [x] Strikethrough 
-  - [ ] Deadly (one shot enemies)
+  - [x] Deadly (one shot enemies)
   - [x] Vamp (heal for damage dealt)
   - [ ] Rebound (reflect damage back to enemy)
     - [ ] Add "ability" cards (adds stats or abilities to a card)
