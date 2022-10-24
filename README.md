@@ -1,5 +1,5 @@
 # Card Game
-(name pending)
+[Documentation](documentation.md)
 
 ## Overview
 
