@@ -13,6 +13,7 @@ launchIOSDevice.dependsOn build
 createIPA.dependsOn build
 
 robovm {
+	iosSkipSigning = true
 	archs = "thumbv7:arm64"
 }
 
