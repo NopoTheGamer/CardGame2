@@ -11,7 +11,7 @@ workflows:
       cache_paths:
         - $HOME/.gradle/caches
     artifacts:
-      - build/*.ipa
+      - ios/build/robovm/*.ipa
     triggering:
       events:
         - push
