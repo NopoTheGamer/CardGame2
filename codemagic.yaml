@@ -3,10 +3,10 @@ workflows:
     name: build
     scripts:
       - ./gradlew ios:createIPA
-    instance_type: mac_mini_m1
+    instance_type: mac_mini
     environment:
-      xcode: latest
-      java: 17
+      xcode: 13.2
+      java: 17.0.1
     cache:
       cache_paths:
         - $HOME/.gradle/caches
