@@ -21,6 +21,7 @@ as well as slay the spire
   - [x] Deadly (one shot enemies)
   - [x] Vamp (heal for damage dealt)
   - [ ] Rebound (reflect damage back to enemy)
+  - [ ] Armoured (take less damage)
     - [ ] Add "ability" cards (adds stats or abilities to a card)
       - [ ] Add the shield mechanic
 - [ ] Add a main menu

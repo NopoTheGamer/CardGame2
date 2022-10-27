@@ -1,0 +1,22 @@
+workflows:
+  build:
+    name: build
+    scripts:
+      - ./gradlew ios:createIPA
+    instance_type: mac_mini_m1
+    environment:
+      xcode: latest
+      java: 17
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+    artifacts:
+      - build/*.ipa
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+      cancel_previous_builds: true
