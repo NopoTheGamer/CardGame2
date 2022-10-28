@@ -8,10 +8,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.nopo.cardgame.GameField;
+import com.nopo.cardgame.ai.MathThingyKt;
 import com.nopo.cardgame.cards.Card;
 import com.nopo.cardgame.cards.ExamplePlacementCard;
 import com.nopo.cardgame.cards.FrenzyCard;
 import com.nopo.cardgame.cards.WaterCard;
+import kotlin.random.Random;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +91,7 @@ public class GameScreen implements Screen {
         nextButton();
         renderCards(game);
         game.batch.end();
+        MathThingyKt.modifyChance(1, Random.Default.nextFloat());
     }
 
     void placing() {
