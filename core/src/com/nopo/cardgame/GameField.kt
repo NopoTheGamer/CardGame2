@@ -1,7 +1,9 @@
 package com.nopo.cardgame
 
+import com.nopo.cardgame.ai.LanePicker
 import com.nopo.cardgame.cards.Card
 import com.nopo.cardgame.cards.ExamplePlacementCard
+import com.nopo.cardgame.utils.round
 
 object GameField {
     private val yourCards = ArrayList(listOf(*arrayOfNulls<Card>(5)))
@@ -251,5 +253,13 @@ object GameField {
     fun setLanes(laneType: ArrayList<LaneTypes>) {
         if (laneType.size != 5) throw IndexOutOfBoundsException("LaneType must be 5 long")
         laneTypes = laneType
+    }
+
+    @JvmStatic
+    fun doEnemyPlacing() {
+        val lanePicker = LanePicker(getField(Type.DECK))
+        lanePicker.setChance(0, Math.random().toFloat().round(3))
+        lanePicker.setChance(3, .02f)
+        lanePicker.pickLane()
     }
 }

@@ -8,12 +8,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.nopo.cardgame.GameField;
-import com.nopo.cardgame.ai.MathThingyKt;
 import com.nopo.cardgame.cards.Card;
 import com.nopo.cardgame.cards.ExamplePlacementCard;
 import com.nopo.cardgame.cards.FrenzyCard;
 import com.nopo.cardgame.cards.WaterCard;
-import kotlin.random.Random;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +76,7 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         placing();
+        enemyPlacing();
         startCombat();
         combat();
         endCombat();
@@ -91,29 +90,35 @@ public class GameScreen implements Screen {
         nextButton();
         renderCards(game);
         game.batch.end();
-        MathThingyKt.modifyChance(1, Random.Default.nextFloat());
+        //LanePicker.setChance(1, Random.Default.nextFloat());
     }
 
     void placing() {
         if (gameState != GAME_STATE.PLACING) return;
     }
 
+    void enemyPlacing() {
+        if (gameState != GAME_STATE.ENEMY_PLACING) return;
+        GameField.doEnemyPlacing();
+        gameState = gameState.next();
+    }
+
     void startCombat() {
         if (gameState != GAME_STATE.START_COMBAT) return;
         GameField.startCombat();
-        gameState = GAME_STATE.COMBAT;
+        gameState = gameState.next();
     }
 
     void combat() {
         if (gameState != GAME_STATE.COMBAT) return;
         GameField.combat();
-        gameState = GAME_STATE.END_COMBAT;
+        gameState = gameState.next();
     }
 
     void endCombat() {
         if (gameState != GAME_STATE.END_COMBAT) return;
         GameField.nextTurn();
-        gameState = GAME_STATE.PLACING;
+        gameState = gameState.next();
     }
 
     void nextButton() {
@@ -154,10 +159,11 @@ public class GameScreen implements Screen {
     }
 
     public enum GAME_STATE {
-        PLACING, START_COMBAT, COMBAT, END_COMBAT;
+        PLACING, ENEMY_PLACING, START_COMBAT, COMBAT, END_COMBAT;
         GAME_STATE next() {
             return switch (this) {
-                case PLACING -> START_COMBAT;
+                case PLACING -> ENEMY_PLACING;
+                case ENEMY_PLACING -> START_COMBAT;
                 case START_COMBAT -> COMBAT;
                 case COMBAT -> END_COMBAT;
                 case END_COMBAT -> PLACING;
