@@ -18,6 +18,18 @@ class LanePicker @JvmOverloads constructor(var deck: ArrayList<Card?>, var chanc
         normalize()
     }
 
+    fun addChance(lane: Int, addedChance: Float) {
+        normalize()
+        chances[lane] = chances[lane] + addedChance
+        normalize()
+    }
+
+    fun removeChance(lane: Int, removedChance: Float) {
+        normalize()
+        chances[lane] = chances[lane] - removedChance
+        normalize()
+    }
+
     fun zeroCount(): Int {
         var count = 0
         for (i in 0..4) {

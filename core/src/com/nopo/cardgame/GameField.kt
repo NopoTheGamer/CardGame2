@@ -259,7 +259,9 @@ object GameField {
     fun doEnemyPlacing() {
         val lanePicker = LanePicker(getField(Type.DECK))
         lanePicker.setChance(0, Math.random().toFloat().round(3))
-        lanePicker.setChance(3, .02f)
+        //lanePicker.setChance(3, .02f)
+        lanePicker.addChance(3, .6f)
+        lanePicker.removeChance(1, .1f)
         lanePicker.pickLane()
     }
 }

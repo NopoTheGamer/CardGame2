@@ -20,7 +20,7 @@ import static com.nopo.cardgame.utils.RenderUtilsKt.renderCards;
 
 public class GameScreen implements Screen {
 
-    final Game game;
+    public final Game game;
     public static GameScreen INSTANCE;
     OrthographicCamera camera;
     Vector3 touchPos = new Vector3();
