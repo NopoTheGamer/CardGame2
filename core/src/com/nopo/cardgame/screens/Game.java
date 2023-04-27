@@ -1,6 +1,5 @@
 package com.nopo.cardgame.screens;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,7 +8,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
+import com.nopo.cardgame.Config;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class Game extends com.badlogic.gdx.Game {
 	public SpriteBatch batch;
@@ -17,6 +21,10 @@ public class Game extends com.badlogic.gdx.Game {
 	static Texture black;
 	public BitmapFont font;
 	public BitmapFont fontLarge;
+
+	Config config;
+	File configFile;
+	Json json = new Json();
 
 	@Override
 	public void create () {
@@ -29,7 +37,62 @@ public class Game extends com.badlogic.gdx.Game {
 		fontGenerator.dispose();
 		pointer = new Rectangle(-10, -10, 32, 32);
 		black = new Texture(Gdx.files.internal("black.png"));
+
+		json.setUsePrototypes(false);
+		json.setOutputType(JsonWriter.OutputType.json);
+
+		configFile = Gdx.files.internal("config.json").file();
+
+		if (configFile.exists()) {
+			try (
+					BufferedReader reader = new BufferedReader(new InputStreamReader(
+							new FileInputStream(configFile),
+							StandardCharsets.UTF_8
+					))
+			) {
+				config = json.fromJson(Config.class, reader);
+			} catch (Exception exc) {
+				new RuntimeException("Invalid config file. This will reset the config to default", exc).printStackTrace();
+			}
+		}
+
+		if (config == null) {
+			config = new Config();
+		}
+
+		try {
+			configFile.createNewFile();
+
+			try (
+					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+							new FileOutputStream(configFile),
+							StandardCharsets.UTF_8
+					))
+			) {
+				writer.write(json.prettyPrint(config));
+			}
+		} catch (Exception ignored) {
+		}
+
+		saveConfig();
+
 		this.setScreen(new MainMenuScreen(this));
+	}
+
+	public void saveConfig() {
+		try {
+			configFile.createNewFile();
+
+			try (
+					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+							new FileOutputStream(configFile),
+							StandardCharsets.UTF_8
+					))
+			) {
+				writer.write(json.prettyPrint(config));
+			}
+		} catch (Exception ignored) {
+		}
 	}
 
 	@Override

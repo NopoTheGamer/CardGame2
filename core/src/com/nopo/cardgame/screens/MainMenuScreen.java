@@ -2,14 +2,11 @@ package com.nopo.cardgame.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.nopo.cardgame.GameField;
 
 public class MainMenuScreen implements Screen {
     final Game game;
@@ -27,7 +24,7 @@ public class MainMenuScreen implements Screen {
 
         startButton = new Rectangle(200, 400, 623, 186);
         optionsButton = new Rectangle(200, 200, 623, 186);
-        pauseButton = new Rectangle(200, 00, 623, 186);
+        pauseButton = new Rectangle(200, 0, 623, 186);
 
     }
 
@@ -59,6 +56,7 @@ public class MainMenuScreen implements Screen {
         }
 
         if (Gdx.input.isTouched() && pauseButton.overlaps(Game.pointer)) {
+            game.saveConfig();
             throw new Error("Quit game");
         }
 
