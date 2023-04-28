@@ -15,6 +15,9 @@ public class MainMenuScreen implements Screen {
     Rectangle startButton;
     Rectangle optionsButton;
     Rectangle pauseButton;
+    Texture startTexture = new Texture(Gdx.files.internal("start_button.png"));
+    Texture optionsTexture = new Texture(Gdx.files.internal("options_button.png"));
+    Texture pauseTexture = new Texture(Gdx.files.internal("pause_button.png"));
 
     public MainMenuScreen(final Game game) {
         this.game = game;
@@ -41,9 +44,9 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.batch.draw(new Texture(Gdx.files.internal("start_button.png")), startButton.x, startButton.y, startButton.width, startButton.height); //TODO: change file thingy
-        game.batch.draw(new Texture(Gdx.files.internal("options_button.png")), optionsButton.x, optionsButton.y, optionsButton.width, optionsButton.height); //TODO: change file thingy
-        game.batch.draw(new Texture(Gdx.files.internal("pause_button.png")), pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height); //TODO: change file thingy
+        game.batch.draw(startTexture, startButton.x, startButton.y, startButton.width, startButton.height);
+        game.batch.draw(optionsTexture, optionsButton.x, optionsButton.y, optionsButton.width, optionsButton.height);
+        game.batch.draw(pauseTexture, pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height);
         game.fontLarge.draw(game.batch, "Card Game", 300, 750);
         game.batch.end();
 

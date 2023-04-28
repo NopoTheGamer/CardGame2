@@ -17,6 +17,9 @@ public class OptionsScreen implements Screen {
     Rectangle backButton;
     Rectangle muteButton;
     Config config;
+    Texture back = new Texture(Gdx.files.internal("back_button.png"));
+    Texture muted = new Texture(Gdx.files.internal("muted.png"));
+    Texture unmuted = new Texture(Gdx.files.internal("unmuted.png"));
 
     public OptionsScreen(final Game game) {
 
@@ -44,9 +47,9 @@ public class OptionsScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.batch.draw(new Texture(Gdx.files.internal("back_button.png")), backButton.x, backButton.y, backButton.width, backButton.height); //TODO: change file thingy
-        if (game.config.muteSound) game.batch.draw(new Texture(Gdx.files.internal("muted.png")), muteButton.x, muteButton.y, muteButton.width, muteButton.height);
-        else game.batch.draw(new Texture(Gdx.files.internal("unmuted.png")), muteButton.x, muteButton.y, muteButton.width, muteButton.height);
+        game.batch.draw(back, backButton.x, backButton.y, backButton.width, backButton.height);
+        if (game.config.muteSound) game.batch.draw(muted, muteButton.x, muteButton.y, muteButton.width, muteButton.height);
+        else game.batch.draw(unmuted, muteButton.x, muteButton.y, muteButton.width, muteButton.height);
         game.batch.end();
 
         if (Gdx.input.isTouched() && backButton.overlaps(Game.pointer)) {
