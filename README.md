@@ -10,7 +10,7 @@ as well as slay the spire
 ## Todo
 (in no real order)
 
-- [ ] Add enemy ai
+- [x] Add enemy ai (sorta?)
 - [x] Add card stat modifiers (more hp, more damage)
 - [ ] Add card ability modifiers (double strike etc)
   - [x] Double strike
@@ -23,14 +23,14 @@ as well as slay the spire
   - [ ] Armoured (take less damage)
     - [ ] Add "ability" cards (adds stats or abilities to a card)
       - [ ] Add the shield mechanic
-- [ ] Add a main menu
-  - [ ] Add levels
-    - [ ] Add level select
+- [x] Add a main menu
+  - [x] Add levels (sorta, there is level 1 and the tutorial)
+    - [x] Add level select
 - [ ] Add a game over screen
 - [ ] Add cards that get placed on other cards
 - [ ] Add environments 
 - [x] Add water
 - [ ] Add custom decks (not really sure?)
-- [ ] Add textures
+- [x] Add textures (used bing ai to create them)
 - [ ] Add card descriptions and info
 - [ ] Add damage splashes
