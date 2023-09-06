@@ -1,5 +1,4 @@
 # Card Game
-[Documentation](documentation.md)
 
 ## Overview
 
