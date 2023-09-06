@@ -51,7 +51,7 @@ public class MainMenuScreen implements Screen {
         game.batch.end();
 
         if (Gdx.input.isTouched() && startButton.overlaps(Game.pointer)) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new LevelSelectScreen(game));
         }
 
         if (Gdx.input.isTouched() && optionsButton.overlaps(Game.pointer)) {

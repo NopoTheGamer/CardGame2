@@ -23,7 +23,6 @@ public class OptionsScreen implements Screen {
 
     public OptionsScreen(final Game game) {
 
-        //https://libgdx.com/wiki/utils/reading-and-writing-json
         this.game = game;
 
         this.config = new Config();
