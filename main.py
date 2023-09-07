@@ -13,7 +13,7 @@ def main(name):
         f.extractall()
     with ZipFile('game.zip', 'r') as f:
         f.extractall()
-    os.system(".\\jdk-17.0.8\\bin\\javaw.exe -jar \\CardGame2-master\\desktop-1.0.jar")
+    os.system(".\\jdk-17.0.8\\bin\\javaw.exe -jar .\\CardGame2-master\\desktop-1.0.jar")
     # extract in current directory
     # Use a breakpoint in the code line below to debug your script.
 
