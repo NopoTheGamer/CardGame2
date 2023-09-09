@@ -1,8 +1,9 @@
 # Python script to download and run my game
-import os
-import platform
-import tarfile
-from zipfile import ZipFile
+import os  # This is used to run shell commands to run the game
+import platform  # This is used to work out the current operating system
+import tarfile  # Tar files are compressed files like zip files, mainly used by linux
+import webbrowser  # Used to open urls in the browser
+from zipfile import ZipFile  # Used to extract zip files
 
 
 def main():
@@ -13,13 +14,14 @@ def main():
     print("(1): Start game (2): Manual install (use if it broke) (3): Exit")
     choice = input("Enter your choice: ")
     if choice == "2":
+        webbrowser.open('https://github.com/NopoTheGamer/CardGame2/blob/master/HOW-TO-INSTALL.md') # open install guide in browser
         exit()
-        pass # open install guide in browser
     elif choice == "3":
         exit()
     # curl downloads from urls
     # this is the direct download to my games repo
     if not os.path.exists("CardGame2-master") or not os.path.isdir("CardGame2-master"):
+        print("Downloading game")
         os.system("curl https://codeload.github.com/NopoTheGamer/CardGame2/zip/refs/heads/master -o game.zip")
         # we have to extract both zips we download
         with ZipFile('game.zip', 'r') as f:
@@ -34,6 +36,7 @@ def main():
     if plt == "Linux":
         print("Your system is Linux")
         if not hasDownloadedBefore:
+            print("Downloading JDK")
             os.system("curl https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz -o jdk.tar.gz")
             # Linux and Mac use tarballs whereas Windows uses zip files
             with tarfile.open("jdk.tar.gz", 'r:gz') as f:
@@ -41,21 +44,23 @@ def main():
             os.remove("jdk.tar.gz")
         else:
             print("JDK already downloaded, Skipping")
-        os.system("./jdk-17.0.8/bin/java -jar ./CardGame2-master/desktop-1.0.jar")
+        os.system("./jdk-17.0.8/bin/java -jar ./CardGame2-master/game.jar")
     elif plt == "Darwin": # Darwin is the name of MacOS's kernel
         print("Your system is MacOS")
         if not hasDownloadedBefore:
+            print("Downloading JDK")
             os.system("curl https://download.oracle.com/java/17/latest/jdk-17_macos-x64_bin.tar.gz -o jdk.tar.gz")
             with tarfile.open("jdk.tar.gz", 'r:gz') as f:
                 f.extractall()
             os.remove("jdk.tar.gz")
         else:
             print("JDK already downloaded, Skipping")
-        os.system("./jdk-17.0.8/bin/java -jar ./CardGame2-master/desktop-1.0.jar")
+        os.system("./jdk-17.0.8/bin/java -jar ./CardGame2-master/game.jar")
     else:
         print("Unidentified system")
         print("I will assume you are on Windows")
         if not hasDownloadedBefore:
+            print("Downloading JDK")
             os.system("curl https://download.oracle.com/java/17/latest/jdk-17_windows-x64_bin.zip -o jdk.zip")
             with ZipFile('jdk.zip', 'r') as f:
                 f.extractall()
@@ -63,7 +68,7 @@ def main():
         else:
             print("JDK already downloaded, Skipping")
         # runs java with my game as the argument
-        os.system(".\\jdk-17.0.8\\bin\\javaw.exe -jar .\\CardGame2-master\\desktop-1.0.jar")
+        os.system(".\\jdk-17.0.8\\bin\\javaw.exe -jar .\\CardGame2-master\\game.jar")
 
 if __name__ == '__main__':
     main()
