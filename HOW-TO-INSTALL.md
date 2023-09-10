@@ -9,6 +9,7 @@ This does not install the Java runtime environment system-wide on your computer
 # Info
 
 School wifi blocks github releases for me, could be an issue
+
 The install script does work on school wifi for me though
 
 # Automatic Install
