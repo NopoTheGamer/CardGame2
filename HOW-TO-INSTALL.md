@@ -14,7 +14,7 @@ The install script does work on school wifi for me though
 # Automatic Install
 #### I recommend running this in an empty folder, makes like 4 files/folders
 
-Download https://github.com/NopoTheGamer/CardGame2/releases/download/1/main.py and run it with python
+Download https://github.com/NopoTheGamer/CardGame2/releases/download/2/Installer.py and run it with python
 
 The script will download the required file and run the game for you
 
