@@ -44,3 +44,11 @@ Drag the game.jar file into the Command Prompt/Terminal
 The Command should look something like `path\to\folder\jdk-17.0.8\bin\javaw.exe -jar path\to\folder\CardGame2-master\game.jar`
 
 Click enter and the game should start
+
+# Uninstall
+
+You can just delete the folder you placed the script in to delete everything it downloaded
+
+If you just want to redownload the jdk you can just delete the jdk-17.0.8 folder
+
+If you just want to redownload the game jar you can just delete the CardGame2-master folder
