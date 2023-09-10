@@ -1,3 +1,11 @@
+# System requirements
+
+The game should realistically run on any computer that has Java 17 installed
+
+This guide will get Java 17 and the game downloaded to your computer
+
+This does not install the Java runtime environment system-wide on your computer
+
 # Info
 
 School wifi blocks github releases for me, could be an issue
