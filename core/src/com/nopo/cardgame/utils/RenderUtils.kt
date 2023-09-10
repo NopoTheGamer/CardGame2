@@ -1,5 +1,7 @@
 package com.nopo.cardgame.utils
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Texture
 import com.nopo.cardgame.GameField
 import com.nopo.cardgame.cardHolding
 import com.nopo.cardgame.cards.Card
@@ -30,6 +32,13 @@ fun renderCards(game: Game) { //TODO: refactor this code later
 
     for (i in 0..9) {
         val card = GameField.getCard(i, GameField.Type.DECK) ?: continue
+        if (card.shouldShowInfo) {
+            if (Gdx.input.isTouched) card.shouldShowInfo = false
+            var a = Texture(Gdx.files.internal("black.png"))
+            game.batch.draw(a, 0f, 370f, 962f, 245f)
+            game.batch.draw(card.texture, 0f, 450f, card.texture.width.toFloat(), card.texture.height.toFloat())
+            game.font.draw(game.batch, card.showInfo(), 10f, 600f)
+        }
         if (!cardHolding(card, i)) {
             resetCard(card, i)
         }

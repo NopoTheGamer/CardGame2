@@ -50,7 +50,11 @@ public class MainMenuScreen implements Screen {
         game.fontLarge.draw(game.batch, "Card Game", 300, 750);
         game.batch.end();
 
+        //Input is mouse/touchscreen
+        //Is touched just means if the mouse is clicked down
+        //Overlaps checks if the startButton Rectangle is overlapping the pointer Rectangle
         if (Gdx.input.isTouched() && startButton.overlaps(Game.pointer)) {
+            //game.setScreen changes the screen and all the rendering code to a new class
             game.setScreen(new LevelSelectScreen(game));
         }
 
@@ -60,7 +64,7 @@ public class MainMenuScreen implements Screen {
 
         if (Gdx.input.isTouched() && pauseButton.overlaps(Game.pointer)) {
             game.saveConfig();
-            throw new Error("Quit game");
+            System.exit(0);
         }
 
     }

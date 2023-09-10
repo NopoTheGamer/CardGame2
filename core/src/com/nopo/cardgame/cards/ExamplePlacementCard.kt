@@ -20,4 +20,8 @@ class ExamplePlacementCard @JvmOverloads constructor(name: String, baseDamage: I
         println("i die")
     }
 
+    override fun showInfo(): String {
+        return "This card gains 1hp at the end of every turn, costs 5 mana, has 1 attack and 3 health, also places in the 4th lane if its empty"
+    }
+
 }

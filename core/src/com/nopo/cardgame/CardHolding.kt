@@ -1,6 +1,7 @@
 package com.nopo.cardgame
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input.Keys
 import com.nopo.cardgame.cards.Card
 import com.nopo.cardgame.screens.Game
 import com.nopo.cardgame.screens.GameScreen
@@ -9,6 +10,7 @@ var holding = false;
 fun cardHolding(card : Card, i : Int) : Boolean {
     if (GameScreen.INSTANCE.gameState == GameScreen.GAME_STATE.PLACING) {
         if (!Gdx.input.isTouched) holding = false
+        if (card.rectangle.overlaps(Game.pointer) && Gdx.input.isKeyJustPressed(Keys.SPACE)) card.shouldShowInfo = !card.shouldShowInfo
         if (card.rectangle.overlaps(Game.pointer) && Gdx.input.isTouched && !card.isHeld && !holding) {
             card.isHeld = true
             holding = true

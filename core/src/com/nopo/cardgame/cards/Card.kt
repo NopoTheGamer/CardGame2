@@ -39,6 +39,7 @@ open class Card @JvmOverloads constructor(
     var currentHealth = 0
     var costModifier = 0
     var currentCost = 0
+    var shouldShowInfo = false
 
     /**
      * Always call before using the cards health values
@@ -124,5 +125,9 @@ open class Card @JvmOverloads constructor(
 
     open fun onNewTurnDeck() {
 
+    }
+
+    open fun showInfo(): String {
+        return "This is the default card, 3 cost, 3 hp and 3 attack"
     }
 }

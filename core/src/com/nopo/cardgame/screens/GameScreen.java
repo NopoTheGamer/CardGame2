@@ -16,6 +16,7 @@ import com.nopo.cardgame.cards.WaterCard;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nopo.cardgame.screens.Game.black;
 import static com.nopo.cardgame.utils.RenderUtilsKt.renderCards;
 
 public class GameScreen implements Screen {
@@ -87,8 +88,25 @@ public class GameScreen implements Screen {
         game.font.draw(game.batch, Integer.toString(GameField.INSTANCE.getTheirHealth()), 50, 750);
         game.font.draw(game.batch, Integer.toString(GameField.INSTANCE.getYourHealth()), 50, 230);
         game.font.draw(game.batch, Integer.toString(gameState.ordinal()), 900, 60);
+
         nextButton();
         renderCards(game);
+        if (GameField.INSTANCE.getTheirHealth() == 0) {
+            game.batch.draw(black, 0, 0, 960, 960);
+            game.fontLarge.draw(game.batch, "You Win!", 400, 500);
+            game.batch.draw(new Texture(Gdx.files.internal("pause_button.png")), 100, 200, 623, 186);
+            if (Game.pointer.overlaps(new Rectangle(100, 200, 623, 186)) && Gdx.input.justTouched()) {
+                System.exit(0);
+            }
+        }
+        if (GameField.INSTANCE.getYourHealth() == 0) {
+            game.batch.draw(black, 0, 0, 960, 960);
+            game.fontLarge.draw(game.batch, "You Lose!", 400, 500);
+            game.batch.draw(new Texture(Gdx.files.internal("pause_button.png")), 100, 200, 623, 186);
+            if (Game.pointer.overlaps(new Rectangle(100, 200, 623, 186)) && Gdx.input.justTouched()) {
+                System.exit(0);
+            }
+        }
         game.batch.end();
         //LanePicker.setChance(1, Random.Default.nextFloat());
     }
