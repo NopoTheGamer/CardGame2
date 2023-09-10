@@ -1,5 +1,9 @@
 # Card Game
 
+# How to install
+
+Follow the guide over [here](HOW-TO-INSTALL.md)
+
 ## Overview
 
 uhh so its like plants vs zombies heroes kinda
