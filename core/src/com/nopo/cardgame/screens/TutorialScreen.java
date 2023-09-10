@@ -75,6 +75,7 @@ public class TutorialScreen implements Screen {
             page++;
             if (page == 3) {
                 game.config.hasPlayedBefore = true;
+                game.saveConfig();
                 game.setScreen(new GameScreen(game));
             }
         }
